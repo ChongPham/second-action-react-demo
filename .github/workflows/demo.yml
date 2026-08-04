@@ -19,6 +19,8 @@ jobs:
   build:
     needs: test
     runs-on: ubuntu-latest
+    outputs: 
+        script-file: $ {{ steps.publish.outputs.script-file }}
     steps:
       - name: Get code
         uses: actions/checkout@v3
@@ -26,6 +28,10 @@ jobs:
         run: npm ci
       - name: Build website
         run: npm run build
+      - name: Publish JS file name
+        id: publish
+        run: find dist/assets -type f -name "*.js" -execdir echo "script-file={}" >> $GITHUB_OUTPUT \;
+            # Lấy toàn bộ file .js trong dist/assets lưu vào file đang được GITHUB_OUTPUT trỏ tới dưới dạng key=value
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
@@ -43,5 +49,7 @@ jobs:
             name: dist-files
       - name: Output contents
         run: ls -la
+      - name: Output filename
+        run: echo "${{ needs.build.outputs.script-file }}"
       - name: Deploy
         run: echo "Deploying..."
