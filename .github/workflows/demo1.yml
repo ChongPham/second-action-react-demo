@@ -1,16 +1,17 @@
 name: Events Demo 1
 on: 
-    pull_request:
-        types: [opened, edited]
     workflow_dispatch:
-    push:
-        branches:
-            - main
-            - 'dev-*'
-            - 'feature/*'
-        paths-ignore:
-            - 'docs/**'  # Nếu sửa trong docs/**, thì workflow sẽ không chạy 
-                         # <=> ngược lại với "paths": Chỉ chạy workflow khi các file chỉ định bị thay đổi
+    # pull_request:
+    #     types: [opened, edited]
+    # workflow_dispatch:
+    # push:
+    #     branches:
+    #         - main
+    #         - 'dev-*'
+    #         - 'feature/*'
+    #     paths-ignore:
+    #         - 'docs/**'  # Nếu sửa trong docs/**, thì workflow sẽ không chạy 
+    #                      # <=> ngược lại với "paths": Chỉ chạy workflow khi các file chỉ định bị thay đổi
 jobs:
     deploy: 
         runs-on: ubuntu-latest
