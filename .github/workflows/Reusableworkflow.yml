@@ -31,4 +31,4 @@ jobs:
               run: echo "trong dep trai dung lai workflow"
             - name: Set result output
               id: set-result
-              run: echo "step-results=trong_success" >> $GITHUB_OUTPUT
+              run: echo "step-result=trong_success" >> $GITHUB_OUTPUT
