@@ -60,7 +60,7 @@ jobs:
         id: build-website
         run: npm run build
       - name: Upload artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-aritfact@v4
         with:
             name: dist-file
             path: dist
@@ -70,7 +70,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Get build artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-aritfact@v3
         with:
           name: dist-files
       - name: Output contents
