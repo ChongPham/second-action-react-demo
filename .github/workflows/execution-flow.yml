@@ -77,3 +77,10 @@ jobs:
         run: ls
       - name: Deploy
         run: echo "Deploying...for trongdeptrai"
+
+  report:
+    if: failure()
+    runs-on: ubuntu-latest
+    steps:
+        - name: Output fail job report
+          run: echo "trongdeptrai nhung sai roi"
