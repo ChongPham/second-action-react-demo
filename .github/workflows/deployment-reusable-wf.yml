@@ -1,4 +1,4 @@
-name: Deployment Ex
+name: Deployment Ex input Reusable workflow
 on: 
   push:
     branches: 
@@ -24,9 +24,16 @@ jobs:
         run: npm ci
       - name: Test code
         run: npm run test
+      - name: Build step
+        run: npm run build
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with: 
+            name: dist-file
+            path: dist
 
   deploy:
     needs: test
     uses: ./.github/workflows/Reusableworkflow.yml
     with:
-      artifact-name: dist-file # Chỉ định input cho reusable workflow
+      artifact-name: dist-file # Chỉ định input cho reusable workflow ádsadsadd
