@@ -36,4 +36,14 @@ jobs:
     needs: test
     uses: ./.github/workflows/Reusableworkflow.yml
     with:
-      artifact-name: dist-file # Chỉ định input cho reusable workflow ádsadsadd
+      artifact-name: dist-file # Chỉ định input cho reusable workflow
+    # secrets:
+    #   some-secret: $ {{ secrets.some-secret }}
+  
+  print-deploy-result:
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print deploy output
+        run: echo " trong dep trai + ${{ needs.deploy.outputs.result }}"   # Lấy từ reussable workflow: Reusableworkflow.yml
+    
