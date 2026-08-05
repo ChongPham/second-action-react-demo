@@ -1,11 +1,10 @@
-name: Deploy website
+name: Execution control
 on: 
-    workflow_dispatch:
-#   push:
-#     branches:
-#       - main
+  push:
+    branches:
+      - main
 jobs:
-  test:
+  lint:
     runs-on: ubuntu-latest
     steps:
       - name: Get code
@@ -19,48 +18,59 @@ jobs:
         run: npm ci
       - name: Lint code
         run: npm run lint
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v4
+      - name: Cache dependencies 
+        uses: actions/cache@v4
+        with:
+            path: ~/.npm
+            key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
+      - name: Install dependencies
+        run: npm ci
       - name: Test code
         run: npm run test
+      - name: Upload test report
+        uses: actions/upload-aritfact@v4
+        with: 
+            name: test-report
+            path: test.json
 
   build:
     needs: test
     runs-on: ubuntu-latest
-    outputs: 
-        script-file: ${{ steps.publish.outputs.script-file }}
     steps:
       - name: Get code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Cache dependencies 
-        uses: actions/cache@v3
+        id: cache
+        uses: actions/cache@v4
         with:
             path: ~/.npm
             key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
       - name: Install dependencies
         run: npm ci
       - name: Build website
+        id: build-website
         run: npm run build
-      - name: Publish JS file name
-        id: publish
-        run: find dist/assets -type f -name "*.js" -execdir echo "script-file={}" >> $GITHUB_OUTPUT \;
-            # Lấy toàn bộ file .js trong dist/assets lưu vào file đang được GITHUB_OUTPUT trỏ tới dưới dạng key=value
-      - name: Upload Artifact
+      - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
-            name: dist-files
-            path: |
-                dist
-
+            name: dist-file
+            path: dist
+            
   deploy:
     needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Get build artifacts
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v3
         with:
-            name: dist-files
+          name: dist-files
       - name: Output contents
-        run: ls -la
-      - name: Output filename
-        run: echo "${{ needs.build.outputs.script-file }}"
+        run: ls
       - name: Deploy
-        run: echo "Deploying..."
+        run: echo "Deploying...for trongdeptrai"
