@@ -71,4 +71,4 @@ jobs:
       - name: Get code
         uses: actions/checkout@v4
       - name: Run custom action
-        uses: ./.github/actions/sec9-s3-js-action
+        uses: ./.github/actions/sec8-s3-js-action
