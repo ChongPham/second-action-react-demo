@@ -10,7 +10,7 @@ jobs:
       - name: Get code
         uses: actions/checkout@v4
       - name: Load & cache dependencies
-        uses: ./.github/actions/sec8-cached-dependencies/action.yml
+        uses: ./.github/actions/sec8-cached-dependencies
       - name: Lint code
         run: npm run lint
   test:
@@ -19,7 +19,7 @@ jobs:
       - name: Get code
         uses: actions/checkout@v4
       - name: Load & cache dependencies
-        uses: ./.github/actions/sec8-cached-dependencies/action.yml
+        uses: ./.github/actions/sec8-cached-dependencies
       - name: Test code
         id: run-tests
         run: npm run test
