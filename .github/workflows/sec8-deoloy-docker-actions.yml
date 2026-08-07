@@ -1,4 +1,4 @@
-name: Deployment js action and output
+name: Deployment docker action
 on:
   workflow_dispatch:
   # push:
