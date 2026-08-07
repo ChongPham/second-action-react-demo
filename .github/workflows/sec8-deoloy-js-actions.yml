@@ -64,6 +64,7 @@ jobs:
       - name: Output contents
         run: ls
       - name: Deploy site
+        id: Deploy
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.SECRET_ACCESS_KEY }}
@@ -73,13 +74,6 @@ jobs:
           dist-folder: ./dist
           # bucket-region: ap-southeast-1
   
-  # information:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Get code
-  #       uses: actions/checkout@v4
-  #     - name: Run custom action
-  #       uses: ./.github/actions/sec8-s3-js-action
-  #       with:
-  #         bucket: amzn-s3-trong-github-actions
-  #         dist-folder: ./dist
+      - name: output information
+        run: |
+          echo "Live URL: ${{steps.Deploy.outputs.website-url}}"
