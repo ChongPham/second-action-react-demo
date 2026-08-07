@@ -71,7 +71,7 @@ jobs:
         uses: ./.github/actions/deploy-s3-docker
         with:
           bucket: amzn-s3-trong-github-actions
-          dist-folder: ./dist
+          dist_folder: ./dist
           # bucket-region: ap-southeast-1
   
       - name: output information
