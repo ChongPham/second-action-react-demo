@@ -66,6 +66,10 @@ jobs:
           path: ./dist
       - name: Output contents
         run: ls
+      - name:
+        run: |
+          echo "Repository = ${{ github.repository }}"
+          echo "Ref = ${{ github.ref }}"
       - name: Get aws permission
         uses: aws-actions/configure-aws-credentials@v4
         with:
