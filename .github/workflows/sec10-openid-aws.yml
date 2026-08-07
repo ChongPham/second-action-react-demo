@@ -77,7 +77,7 @@ jobs:
         with:
           bucket: amzn-s3-trong-github-actions
           dist_folder: ./dist
-          # bucket-region: ap-southeast-1
+          # bucket-region: ap-southeast-1   test
   
       - name: output information
         run: |
