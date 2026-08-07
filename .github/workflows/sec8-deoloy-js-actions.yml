@@ -1,4 +1,4 @@
-name: Deployment js action
+name: Deployment js action and output
 on:
   workflow_dispatch:
   # push:
